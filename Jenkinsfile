@@ -1,39 +1,43 @@
 pipeline {
     agent any
     tools{
-        maven 'maven_3_5_0'
+        maven 'MAVEN_HOME'
     }
-    stages{
-        stage('Build Maven'){
-            steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Java-Techie-jt/devops-automation']]])
-                sh 'mvn clean install'
+    environment{
+        dockerImage = ''
+        registry = 'prakashkbehera/docker-jenkins-integration'
+    }
+    stages {
+        stage('Build Maven') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/pkbgit/docker-jenkins-integration']]])
+                bat 'mvn clean install'
             }
         }
-        stage('Build docker image'){
+        stage('Build Docker Image'){
             steps{
                 script{
-                    sh 'docker build -t javatechie/devops-integration .'
+                    //bat 'docker build -t prakashkbehera/docker-jenkins-integration .'
+                    dockerImage = docker.build registry
                 }
             }
         }
-        stage('Push image to Hub'){
+        stage('Push Docker Image to Docker Hub'){
             steps{
                 script{
-                   withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-                   sh 'docker login -u javatechie -p ${dockerhubpwd}'
-
-}
-                   sh 'docker push javatechie/devops-integration'
+                    docker.withRegistry('', 'docker-uid-w-pwd'){
+                        dockerImage.push()
+                    }
                 }
             }
         }
-        stage('Deploy to k8s'){
+        stage('Deploye to Kubernetes'){
             steps{
                 script{
-                    kubernetesDeploy (configs: 'deploymentservice.yaml',kubeconfigId: 'k8sconfigpwd')
+                    kubernetesDeploy (configs: 'kubernetes-deploy-service.yaml', kubeconfigId: 'k8s-config-pwd-4')
+                    }
                 }
             }
-        }
+        
     }
 }
