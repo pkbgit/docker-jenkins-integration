@@ -17,7 +17,6 @@ pipeline {
         stage('Build Docker Image'){
             steps{
                 script{
-                    //bat 'docker build -t prakashkbehera/docker-jenkins-integration .'
                     dockerImage = docker.build registry
                 }
             }
