@@ -15,7 +15,7 @@ spec:
       containers:
         - name: spring-boot-k8s
           image: prakashkbehera/docker-jenkins-integration:latest # Image that will be used to containers in the cluster
-          #imagePullPolicy: IfNotPresent
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 9999 # The port that the container is running on in the cluster
 
