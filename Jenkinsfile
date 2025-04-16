@@ -30,13 +30,13 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to Kubernetes'){
-            steps{
-                script{
-                    kubernetesDeploy (configs: 'kubernetes-deploy-service.yaml', kubeconfigId: 'k8s-config-pwd-4')
-                    }
-                }
-            }
+        // stage('Deploy to Kubernetes'){
+        //     steps{
+        //         script{
+        //             kubernetesDeploy (configs: 'kubernetes-deploy-service.yaml', kubeconfigId: 'k8s-config-pwd-4')
+        //             }
+        //         }
+        //     }
         
     }
 }
