@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools{
-        maven 'MAVEN_HOME'
+        maven 'maven-3.9.9'
     }
     environment{
         dockerImage = ''
