@@ -27,6 +27,9 @@ pipeline {
                     docker.withRegistry('', 'docker-uid-w-pwd'){
                         dockerImage.push()
                     }
+                    // withCredentials([string(credentialsId: 'docker-uid-w-pwd', variable: 'docker-uid-w-pwd')]) {
+                    //     // some block
+                    // }
                 }
             }
         }
