@@ -24,10 +24,7 @@ pipeline {
         stage('Push Docker Image to Docker Hub'){
             steps{
                 script{
-                    // docker.withRegistry('', 'docker-uid-w-pwd'){
-                    //     dockerImage.push()
-                    // }
-                    withDockerRegistry(credentialsId: 'docker-uid-w-pwd2', toolName: 'Docker-Containerization') {
+                    docker.withRegistry('', 'docker-uid-w-pwd'){
                         dockerImage.push()
                     }
                 }
