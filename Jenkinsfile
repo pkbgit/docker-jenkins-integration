@@ -24,7 +24,10 @@ pipeline {
         stage('Push Docker Image to Docker Hub'){
             steps{
                 script{
-                    docker.withRegistry('', 'docker-uid-w-pwd'){
+                    // docker.withRegistry('', 'docker-uid-w-pwd'){
+                    //     dockerImage.push()
+                    // }
+                    withDockerRegistry(credentialsId: 'dockerhub_id') {
                         dockerImage.push()
                     }
                 }
