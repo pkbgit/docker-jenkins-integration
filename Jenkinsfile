@@ -19,7 +19,7 @@ pipeline {
                 SONAR_AUTH_TOKEN = credentials('SonarQube');
             }
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/pkbgit/docker-jenkins-integration']]])
+                //checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/pkbgit/docker-jenkins-integration']]])
                 bat 'mvn sonar:sonar -Dsonar.projectKey=docker-jenkins-integration -Dsonar.host.url=http://localhost:9000 -Dsonar.token=$SONAR_AUTH_TOKEN'
             }
         }
