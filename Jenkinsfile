@@ -14,6 +14,15 @@ pipeline {
                 bat 'mvn clean install'
             }
         }
+        stage('SonarQube Analysis') {
+            environment{
+                SONAR_AUTH_TOKEN = credentials('sonarqube_id');
+            }
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/pkbgit/docker-jenkins-integration']]])
+                bat 'clean verify sonar:sonar -Dsonar.projectKey=docker-jenkins-integration -Dsonar.projectName='docker-jenkins-integration' -Dsonar.host.url=http://localhost:9000 -Dsonar.token=SONAR_AUTH_TOKEN'
+            }
+        }
         stage('Build Docker Image'){
             steps{
                 script{
