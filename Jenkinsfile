@@ -18,10 +18,15 @@ pipeline {
             environment{
                 SONAR_AUTH_TOKEN = credentials('sonarqube_id');
             }
-            steps {
-                //checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/pkbgit/docker-jenkins-integration']]])
-                bat 'mvn sonar:sonar -Dsonar.projectKey=docker-jenkins-integration -Dsonar.host.url=http://localhost:9000 -Dsonar.token=$SONAR_AUTH_TOKEN'
-            }
+            // steps {
+            //     //checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/pkbgit/docker-jenkins-integration']]])
+            //     bat 'mvn sonar:sonar -Dsonar.projectKey=docker-jenkins-integration -Dsonar.host.url=http://localhost:9000 -Dsonar.token=$SONAR_AUTH_TOKEN'
+            // }
+            script {
+                    withSonarQubeEnv(credentialsId: 'sonarqube_id_1') {
+                        bat 'mvn clean verify sonar:sonar'
+                    }
+                }
         }
         stage('Build Docker Image'){
             steps{
