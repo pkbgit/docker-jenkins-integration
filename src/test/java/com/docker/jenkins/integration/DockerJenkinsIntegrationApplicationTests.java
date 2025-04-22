@@ -8,6 +8,7 @@ class DockerJenkinsIntegrationApplicationTests {
 
 	@Test
 	void contextLoads() {
+		System.out.println("This is a test method");
 	}
 
 }
