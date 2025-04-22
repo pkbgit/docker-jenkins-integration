@@ -16,7 +16,7 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             environment{
-                SONAR_AUTH_TOKEN = credentials('sonarqube_id');
+                SONAR_AUTH_TOKEN = credentials('SonarQube');
             }
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/pkbgit/docker-jenkins-integration']]])
