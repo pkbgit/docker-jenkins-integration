@@ -20,7 +20,7 @@ pipeline {
             }
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/pkbgit/docker-jenkins-integration']]])
-                bat 'mvn clean verify sonar:sonar -Dsonar.projectKey=docker-jenkins-integration -Dsonar.host.url=http://localhost:9000 -Dsonar.token=SONAR_AUTH_TOKEN'
+                bat 'mvn verify sonar:sonar -Dsonar.projectKey=docker-jenkins-integration -Dsonar.host.url=http://localhost:9000 -Dsonar.token=SONAR_AUTH_TOKEN'
             }
         }
         stage('Build Docker Image'){
