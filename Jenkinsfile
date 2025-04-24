@@ -42,13 +42,16 @@ pipeline {
         // stage('Cleaning up') {
         //     steps{sh "docker rmi $registry:$BUILD_NUMBER"
         // }
-        // stage('Deploy to Kubernetes'){
-        //     steps{
-        //         script{
-        //             kubernetesDeploy (configs: 'kubernetes-deploy-service.yaml', kubeconfigId: 'k8s-config-pwd-4')
-        //             }
-        //         }
-        //     }
+        stage('Deploy to Kubernetes'){
+            steps{
+                script{
+                    //kubernetesDeploy (configs: 'kubernetes-deploy-service.yaml', kubeconfigId: 'k8s-config-pwd-4')
+                    withKubeCredentials(kubectlCredentials: [[ credentialsId: 'k8s-secret']]) {
+                        bat 'kubectl apply -f kubernetes-deploy-service.yaml'    
+                    }
+                }
+            }
+        }
         
     }
 }
