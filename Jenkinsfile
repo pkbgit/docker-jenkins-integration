@@ -47,8 +47,8 @@ pipeline {
                 script{
                     //kubernetesDeploy (configs: 'kubernetes-deploy-service.yaml', kubeconfigId: 'k8s-config-pwd-4')
                     withKubeCredentials(kubectlCredentials: [[ credentialsId: 'k8s-secret']]) {
-                        //bat 'kubectl apply -f kubernetes-deploy-service.yaml'   
-                        bat 'kubectl apply -f kubernetes-deploy-service.yaml' --validate=false
+                        bat 'kubectl apply -f kubernetes-deploy-service.yaml'   
+                        //bat 'kubectl apply -f kubernetes-deploy-service.yaml --validate=false'
                     }
                 }
             }
