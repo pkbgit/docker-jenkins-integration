@@ -47,7 +47,20 @@ pipeline {
                 script{
                     //kubernetesDeploy (configs: 'kubernetes-deploy-service.yaml', kubeconfigId: 'k8s-config-pwd-4')
                     withKubeCredentials(kubectlCredentials: [[ credentialsId: 'k8s-secret']]) {
-                        bat 'kubectl apply -f kubernetes-deploy-service.yaml' 
+                        //bat 'kubectl apply -f kubernetes-deploy-service.yaml' 
+                        bat '''
+                        echo --- Cluster Info ---
+                        kubectl cluster-info
+
+                        echo --- Applying Deployment ---
+                        kubectl apply -f kubernetes-deploy-service.yaml
+
+                        echo --- Checking Deployments ---
+                        kubectl get deploy
+
+                        echo --- Checking Pods ---
+                        kubectl get pods -o wide
+                        '''
                     }
                 }
             }
