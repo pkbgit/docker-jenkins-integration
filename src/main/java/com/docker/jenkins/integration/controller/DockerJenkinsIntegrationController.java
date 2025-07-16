@@ -18,4 +18,15 @@ public class DockerJenkinsIntegrationController {
 		return "My name is Prakash";
 	}
 
+	@GetMapping(value = "/student/{name}")
+	public String getStudentString(@PathVariable String name)
+	{
+	    if("Prakash".equals(name)){
+			return "Male-40-Cuttack";
+		}else if("Arpita".equals(name)){
+			return "Female-10-Bhubaneswar";
+		}
+	    return "Wrong Input";
+	}
+
 }
