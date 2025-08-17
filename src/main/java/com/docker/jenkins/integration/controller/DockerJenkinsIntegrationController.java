@@ -11,7 +11,7 @@ public class DockerJenkinsIntegrationController {
 	
 	@GetMapping(value = "/welcome")
 	public String getStringValue() {
-		return "Welcome to Docker Jenkins Integration Application";
+		return "Hi !!! Welcome to Docker Jenkins Integration Application.";
 	}
 
 	@GetMapping(value = "/name")
