@@ -65,6 +65,26 @@ pipeline {
                 }
             }
         }
+        /*stage('Commit & Push') {
+		    steps {
+			  git 'https://your-repo.git'
+			  
+			  def manifestFile = 'manifest.yml'
+		      def content = readFile(manifestFile)
+		
+		      // Replace image line (regex)
+		      def newContent = content.replaceAll(/image:\s+${IMAGE_NAME}:., "image: ${IMAGE_NAME}:${BUILD_NUMBER}")
+		
+		      // Write the updated content back
+		      writeFile(file: manifestFile, text: newContent)
+							
+		      bat 'git config user.name "Jenkins"'
+		      bat 'git config user.email "jenkins@local"'
+		      bat 'git add manifest.yml'
+		      bat "git commit -m \"Update image version to ${BUILD_NUMBER}\" || echo No changes"
+		      bat 'git push origin HEAD:main'
+		    }
+		}*/
         
     }
 }
